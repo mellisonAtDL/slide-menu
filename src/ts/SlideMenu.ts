@@ -184,6 +184,7 @@ class SlideMenu {
 
     // Delete the reference to *this* instance
     // NOTE: Garbage collection is not possible, as long as other references to this object exist
+    //@ts-ignore
     delete this.menuElem._slideMenu;
   }
 
@@ -421,6 +422,11 @@ class SlideMenu {
         const { backLinkBefore, backLinkAfter } = this.options;
 
         const backLink = document.createElement('a');
+        backLink.href = '#';
+        backLink.addEventListener('click', event => {
+          //prevent default behaviour
+          event.preventDefault();
+        });
         backLink.innerHTML = backLinkBefore + anchorText + backLinkAfter;
         backLink.classList.add(SlideMenu.CLASS_NAMES.backlink, SlideMenu.CLASS_NAMES.control);
         backLink.setAttribute('data-action', Action.Back);
